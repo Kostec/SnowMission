@@ -1,7 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QHBoxLayout>
 #include <QMainWindow>
+
+#include <CustomWidgets/questtreewidget.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,6 +17,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    QuestTreeWidget questWidget;
 
 private:
     Ui::MainWindow *ui;

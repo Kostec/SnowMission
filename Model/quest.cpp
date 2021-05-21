@@ -2,5 +2,6 @@
 
 Quest::Quest()
 {
-
+    createTime = QDateTime::currentDateTime();
 }
+

@@ -5,8 +5,9 @@
 
 #include <Model/quest.h>
 
-class QuestController
+class QuestController: QObject
 {
+    Q_OBJECT
 public:
     QuestController();
 
@@ -15,8 +16,8 @@ public:
     void AddQuest(Quest *quest);
     void QuestComplete(Quest *quest);
 
-signals:
-    void QuestCompleted(Quest *quest);
+//signals:
+//    void QuestCompleted(Quest *quest);
 };
 
 
