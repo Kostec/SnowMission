@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Ikons/Brush_machine.png</file>
+        <file>Ikons/Excavator.png</file>
+        <file>Ikons/Plane.png</file>
+        <file>Ikons/Reagent_brush_machine.png</file>
+        <file>Ikons/Rotary_loader.png</file>
+        <file>Ikons/Truck.png</file>
+    </qresource>
+</RCC>

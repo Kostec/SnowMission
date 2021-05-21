@@ -13,15 +13,27 @@ SOURCES += \
     CustomWidgets/mapview.cpp \
     CustomWidgets/questtreewidget.cpp \
     Model/quest.cpp \
+    Models/client_model.cpp \
+    Models/graphics_model.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    server/packets/abstract_packet_class.cpp \
+    server/packets/inform_packet1.cpp \
+    server/packets/type_packet.cpp \
+    server/server.cpp
 
 HEADERS += \
     Controllers/questcontroller.h \
     CustomWidgets/mapview.h \
     CustomWidgets/questtreewidget.h \
     Model/quest.h \
-    mainwindow.h
+    Models/client_model.h \
+    Models/graphics_model.h \
+    mainwindow.h \
+    server/packets/abstract_packet_class.h \
+    server/packets/inform_packet1.h \
+    server/packets/type_packet.h \
+    server/server.h
 
 FORMS += \
     mainwindow.ui
