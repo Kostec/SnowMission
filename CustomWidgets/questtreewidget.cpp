@@ -29,6 +29,16 @@ QuestTreeWidget::QuestTreeWidget()
     setDragDropMode(QAbstractItemView::InternalMove);
 }
 
+void QuestTreeWidget::dropEvent(QDropEvent *event)
+{
+    qDebug() << "drop event";
+}
+
+void QuestTreeWidget::dragLeaveEvent(QDragLeaveEvent *event)
+{
+    qDebug() << "drag leave event";
+}
+
 void QuestTreeWidget::AddQuest(Quest *quest)
 {
     if (typeItemMap.contains(quest->questType))
@@ -45,8 +55,26 @@ void QuestTreeWidget::AddQuest(Quest *quest)
     }
 }
 
+void QuestTreeWidget::QuestUpdate(Quest *quest)
+{
+    if (questItemMap.contains(quest))
+    {
+        QTreeWidgetItem *item = questItemMap[quest];
+        item->setData(0, 0, QVariant(QString("quest %1").arg(quest->id)));
+        item->setData(1, 0, QVariant(Quest::QuestStateString()[quest->questState]));
+        item->setData(2, 0, QVariant("Unit"));
+        item->setData(3, 0, QVariant(quest->createTime));
+        item->setData(4, 0, QVariant(quest->endTime));
+        qDebug() << "item updated";
+    }
+}
+
 void QuestTreeWidget::QuestChangeState(Quest *quest, Quest::QuestState state)
 {
-    QTreeWidgetItem *item = questItemMap[quest];
-    item->setData(1, 0, QVariant(state));
+    if (questItemMap.contains(quest))
+    {
+        QTreeWidgetItem *item = questItemMap[quest];
+        item->setData(1, 0, QVariant(Quest::QuestStateString()[quest->questState]));
+        qDebug() << "item state updated";
+    }
 }

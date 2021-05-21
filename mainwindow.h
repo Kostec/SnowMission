@@ -3,7 +3,12 @@
 
 #include <QHBoxLayout>
 #include <QMainWindow>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 
+
+
+#include <CustomWidgets/mapview.h>
 #include <CustomWidgets/questtreewidget.h>
 
 QT_BEGIN_NAMESPACE
@@ -18,7 +23,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    QHBoxLayout mainLayout;
+
     QuestTreeWidget questWidget;
+
+    QGraphicsScene scene;
+    MapView view;
 
 private:
     Ui::MainWindow *ui;

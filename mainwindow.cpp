@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    this->layout()->addWidget(&questWidget);
+    this->centralWidget()->setLayout(&mainLayout);
 
     Quest *quest = new Quest();
     quest->id = 123;
@@ -26,6 +26,11 @@ MainWindow::MainWindow(QWidget *parent)
     quest->id = 3;
     quest->questType = Quest::QuestType::Clear;
     questWidget.AddQuest(quest);
+
+    mainLayout.addWidget(&questWidget);
+
+    mainLayout.addWidget(&view);
+
 }
 
 MainWindow::~MainWindow()

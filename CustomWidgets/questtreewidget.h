@@ -10,6 +10,9 @@ class QuestTreeWidget: public QTreeWidget
 {
 public:
     QuestTreeWidget();
+    void dropEvent(QDropEvent *event) override;
+    void dragLeaveEvent(QDragLeaveEvent *event) override;
+
     QTreeWidgetItem *clearNode;
 
 private:
@@ -19,6 +22,7 @@ private:
 public slots:
     void AddQuest(Quest *quest);
     void AddUnit();
+    void QuestUpdate(Quest *quest);
     void QuestChangeState(Quest *quest, Quest::QuestState state);
 };
 

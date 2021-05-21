@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     Controllers/questcontroller.cpp \
+    CustomWidgets/mapview.cpp \
     CustomWidgets/questtreewidget.cpp \
     Model/quest.cpp \
     main.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     Controllers/questcontroller.h \
+    CustomWidgets/mapview.h \
     CustomWidgets/questtreewidget.h \
     Model/quest.h \
     mainwindow.h
