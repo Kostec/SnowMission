@@ -2,6 +2,8 @@
 
 #include <CustomWidgets/TreeItems/treeitem.h>
 
+#include <QMenu>
+
 Scene_view::Scene_view()
 {
     scene = new QGraphicsScene(this);
@@ -43,10 +45,35 @@ void Scene_view::mousePressEvent(QMouseEvent *event)
         scene->update();
         break;
     }
-    case Qt::RightButton:
+    case Qt::MiddleButton:
     {
         mapDragStartPos = event->pos();
         move_event = true;
+        break;
+    }
+    case Qt::RightButton:
+    {
+
+        QPointF scene_point = this->mapToScene(event->pos());
+
+
+        QList<QGraphicsItem*> items = scene->items(scene_point);
+
+        foreach(QGraphicsItem* item, items)
+        {
+            Select_model* model = qgraphicsitem_cast<Select_model*>(item);
+            if (model != nullptr)
+            {
+                QMenu* menu = new QMenu();
+                menu->addAction("Уборка");
+                menu->addAction("Проверка");
+                menu->addAction("Вывоз снега");
+                menu->addAction("Удалить", this, [this, model]{this->scene->removeItem(model);});
+                menu->exec(cursor().pos());
+                break;
+            }
+        }
+
         break;
     }
     }
