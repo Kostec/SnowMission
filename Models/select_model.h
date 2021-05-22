@@ -14,6 +14,9 @@ class Select_model : public QGraphicsRectItem
 public:
     Select_model(QList<map_cell> cells, int map_pix_step);
 
+    uint id;
+    int questId;
+
     QList<map_cell> Cells;
     int map_step;
     QRect fromMapRect;
@@ -24,6 +27,8 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) override;
 public slots:
     void RectBuilder(QList<map_cell> cells);
+private:
+    static inline uint countId = 0;
 };
 
 #endif // SELECT_MODEL_H

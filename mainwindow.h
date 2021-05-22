@@ -21,15 +21,19 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
     QHBoxLayout mainLayout;
 
     QuestTreeWidget questWidget;
+
+    Scene_view *map;
 
     QGraphicsScene scene;
 
     Server server;
 
+public slots:
+    void CreateQuest(Quest::QuestType type, int selectModelid);
+    void RemoveQuest(int questId);
 private:
     Ui::MainWindow *ui;
 };

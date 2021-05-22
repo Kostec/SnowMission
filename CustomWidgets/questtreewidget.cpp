@@ -17,25 +17,9 @@ QuestTreeWidget::QuestTreeWidget()
     headerList.append("Дата завершения");
     setHeaderLabels(headerList);
 
-    clearNode = new QTreeWidgetItem();
-    clearNode->setData(0, 0, QVariant("Clearing"));
-    typeItemMap.insert(Quest::QuestType::Clear, clearNode);
-
-    QTreeWidgetItem *item = new QTreeWidgetItem();
-    item->setData(0, 0, QVariant("Visit"));
-    typeItemMap.insert(Quest::QuestType::Visit, item);
-
-    addTopLevelItem(clearNode);
-    addTopLevelItem(item);
-
     setAcceptDrops(true);
     setDragEnabled(true);
     setDragDropMode(QAbstractItemView::InternalMove);
-
-
-    clientsNode = new QTreeWidgetItem();
-    clientsNode->setData(0, 0, QVariant("Units"));
-    addTopLevelItem(clientsNode);
 }
 
 void QuestTreeWidget::dragLeaveEvent(QDragLeaveEvent *event)
@@ -69,22 +53,48 @@ void QuestTreeWidget::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-
 void QuestTreeWidget::AddClient(client_model *client)
 {
     QTreeWidgetItem *item = new ClientTreeItem(client);
-    clientsNode->addChild(item);
+//    clientsNode->addChild(item);
 }
-
 
 void QuestTreeWidget::AddQuest(Quest *quest)
 {
-    if (typeItemMap.contains(quest->questType))
+    if (!typeItemMap.contains(quest->questType))
     {
-        QTreeWidgetItem *item = new QuestTreeItem(quest);
-        typeItemMap[quest->questType]->addChild(item);
-        questItemMap.insert(quest, item);
-        qDebug() << "item added";
+        QTreeWidgetItem *root = new QTreeWidgetItem();
+        root->setData(0,0,QVariant(Quest::QuesTypeString(quest->questType)));
+        addTopLevelItem(root);
+
+        typeItemMap.insert(quest->questType, root);
+    }
+    QTreeWidgetItem *item = new QuestTreeItem(quest);
+    typeItemMap[quest->questType]->addChild(item);
+    questItemMap.insert(quest, item);
+    qDebug() << "item added";
+}
+
+Quest* QuestTreeWidget::AddQuest(Quest::QuestType type, int selectModelId)
+{
+    Quest *quest = new Quest();
+    quest->questType = type;
+    quest->selectedModelId = selectModelId;
+    AddQuest(quest);
+    return quest;
+}
+
+void QuestTreeWidget::RemoveQuestById(int id)
+{
+    QList<Quest*> quests = questItemMap.keys();
+    foreach(Quest *quest, quests)
+    {
+        if (quest->id == id)
+        {
+            QTreeWidgetItem *item = questItemMap[quest];
+            questItemMap.remove(quest);
+            typeItemMap[quest->questType]->removeChild(item);
+        }
     }
 }
 

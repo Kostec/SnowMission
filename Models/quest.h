@@ -19,6 +19,16 @@ public:
      */
     enum QuestState { New = 0, Processing, Checking, Complete };
 
+    static QString QuesTypeString(QuestType type)
+    {
+        switch (type) {
+            case None: return "None";
+            case Visit: return "Visit";
+            case Clear: return "Clear";
+            case Overflow: return "Overflow";
+        }
+    }
+
     static const QMap<Quest::QuestState, QString> QuestStateString(){
         QMap<Quest::QuestState, QString> map;
         map.insert(Quest::QuestState::New, "New");
@@ -32,6 +42,7 @@ public:
     Quest();
 
     int id; // Идентификатор задания
+    int selectedModelId;
     int hostId; // Кто дал задачу
     QDateTime createTime; // Время постановки задачи
     QDateTime endTime; // Время выполнения задачи
@@ -47,6 +58,9 @@ public:
 //private:
     QuestType questType;
     QuestState questState;
+
+private:
+    static inline int idCount = 0;
 
 };
 
