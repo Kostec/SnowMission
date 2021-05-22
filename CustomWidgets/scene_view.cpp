@@ -71,7 +71,7 @@ void Scene_view::mouseReleaseEvent(QMouseEvent *event)
     case Qt::LeftButton:
     {
         QRectF select_zone = select_region->boundingRect();
-        QList<map_cell> selected_cells = MapSelectCells(select_zone);
+        QList<map_cell> selected_cells = MapSelectCells(select_zone.normalized());
 
         Select_model *new_select_item = new Select_model(selected_cells,map_pix_step);
         scene->addItem(new_select_item);
@@ -146,21 +146,4 @@ void Scene_view::generate_map()
             }
         }
     }
-    //    QImage test = road_map->copy();
-    //    for (int i=0;i<map_size.x() ;i++ ) {
-    //        for (int j=0;j<map_size.y() ;j++ )
-    //        {
-    //            if (!Map[j][i].plane_colision)
-    //            {
-    //                for (int x = 0;x<map_pix_step ;x++ ) {
-    //                    test.setPixelColor(map_pix_step*i+x,map_pix_step*j,Qt::red);
-    //                    test.setPixelColor(map_pix_step*i+x,map_pix_step*j+map_pix_step-1,Qt::red);
-    //                    test.setPixelColor(map_pix_step*i,map_pix_step*j+x,Qt::red);
-    //                    test.setPixelColor(map_pix_step*i+map_pix_step-1,map_pix_step*j+x,Qt::red);
-    //                }
-
-    //            }
-    //        }
-    //    }
-    //    test.save("test.png");
 }

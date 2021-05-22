@@ -7,6 +7,7 @@
 
 QuestTreeWidget::QuestTreeWidget()
 {
+
     setColumnCount(5);
     QStringList headerList;
     headerList.append("Тип");
@@ -51,26 +52,11 @@ void QuestTreeWidget::mouseMoveEvent(QMouseEvent *event)
 
         foreach(QTreeWidgetItem* item, selectedItems())
         {
-            TreeItem *treeItem = static_cast<TreeItem*>(item);
-            if (!treeItem) return;
+            client_model *client = ((ClientTreeItem*)item)->client;
 
             QDrag *drag = new QDrag(this);
-            QMimeData *mimeData = new QMimeData;;
-            mimeData->setProperty("type_item", QVariant((int)treeItem->type));
-
-            switch(treeItem->type)
-            {
-            case TreeItem::NONE:
-                qDebug() << "Drag None";
-                break;
-            case TreeItem::QUEST:
-                qDebug() << "Drag quest";
-                break;
-            case TreeItem::USER:
-                qDebug() << "Drag user";
-                mimeData->setProperty("client_id", QVariant(static_cast<ClientTreeItem*>(item)->client->Work_id));
-                break;
-            }
+            QMimeData *mimeData = new QMimeData;
+            mimeData->setProperty("client_id", QVariant(client->Work_id));
             drag->setMimeData(mimeData);
 
             event->accept();
