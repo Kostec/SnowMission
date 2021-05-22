@@ -20,12 +20,12 @@ void Scene_view::wheelEvent(QWheelEvent *event)
     if (event->delta()>0)
     {
         this->scale(0.9,0.9);
-        view_scale*=1.1;
+        view_scale*=1.05;
     }
     else
     {
         this->scale(1.1,1.1);
-        view_scale*=0.9;
+        view_scale*=0.95;
     }
 }
 

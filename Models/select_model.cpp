@@ -5,6 +5,7 @@ Select_model::Select_model(QList<map_cell> cells, int map_pix_step)
     Cells = cells;
     map_step = map_pix_step;
     RectBuilder(cells);
+    S = Cells.size()*map_pix_step*map_pix_step;
 }
 
 void Select_model::RectBuilder(QList<map_cell> cells)

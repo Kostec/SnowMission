@@ -6,6 +6,7 @@
 #include <QHostAddress>
 #include <QDebug>
 #include <QTcpSocket>
+#include <QtNetwork>
 
 #include "Models/client_model.h"
 

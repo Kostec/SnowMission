@@ -100,7 +100,7 @@ void client_model::type_pars(QByteArray body)
     type_packet packet;
     if (!packet.setBytes(body)) return;
     unit_Type = packet.data_packet->type;
-
+    qDebug()<<"unit_Type"<<unit_Type;
     if (view_item != nullptr) return;
     view_item = new Graphics_model(unit_Type,unit_ID);
 }

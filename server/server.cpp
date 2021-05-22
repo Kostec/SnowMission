@@ -2,9 +2,18 @@
 
 Server::Server()
 {
-    QString ipAddress= QHostAddress(QHostAddress::Any).toString();
-
-    if (!this->listen(QHostAddress(ipAddress),5000)) {
+    QString ipAddress;
+    QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
+    for (int i = 0; i < ipAddressesList.size(); ++i) {
+        if (ipAddressesList.at(i) != QHostAddress::LocalHost &&
+            ipAddressesList.at(i).toIPv4Address() /*&& QNetworkInterface::allInterfaces()[i].name()!="ethernet_32769"*/) {
+            ipAddress = ipAddressesList.at(i).toString();
+            break;
+        }
+    }
+    if (ipAddress.isEmpty())
+        ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
+    if (!this->listen(QHostAddress(ipAddress),50000)) {
         qDebug() << "Error create";
         return;
     }

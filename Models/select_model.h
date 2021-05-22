@@ -23,6 +23,7 @@ public:
     QList<map_cell> Cells;
     int map_step;
     QRect fromMapRect;
+    qreal S = 0;
 
     // QGraphicsItem interface
 public:
