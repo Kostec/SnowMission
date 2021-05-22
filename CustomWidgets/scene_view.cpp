@@ -1,5 +1,7 @@
 #include "scene_view.h"
 
+#include <CustomWidgets/TreeItems/treeitem.h>
+
 Scene_view::Scene_view()
 {
     scene = new QGraphicsScene(this);
@@ -9,6 +11,8 @@ Scene_view::Scene_view()
     ViewPoint = map_item->boundingRect().center();
     this->centerOn(ViewPoint);
     generate_map();
+
+//    setAcceptDrops(true);
 }
 
 void Scene_view::wheelEvent(QWheelEvent *event)
@@ -89,6 +93,26 @@ void Scene_view::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
+void Scene_view::dragMoveEvent(QDragMoveEvent *event)
+{
+    QVariant variant (event->mimeData()->property("type_item"));
+    if (variant.isValid())
+    {
+        if ((TreeItem::ItemType::USER) == variant.toInt())
+        {
+            variant = event->mimeData()->property("client_id");
+            if (!variant.isValid())
+            {
+                event->ignore();
+                return;
+            }
+            uint client_id = variant.toInt();
+            qDebug() << "client_id" << client_id;
+            event->accept();
+        }
+    }
+}
+
 QList<map_cell> Scene_view::MapSelectCells(QRectF rect)
 {
     QList<map_cell> rezult;
@@ -146,4 +170,18 @@ void Scene_view::generate_map()
             }
         }
     }
+}
+
+void Scene_view::dropEvent(QDropEvent *event)
+{
+    qDebug() << "Map drop event";
+    uint clientId = event->mimeData()->property("client_id").toUInt();
+    qDebug() << "drop clientId" << clientId;
+    event->accept();
+}
+
+void Scene_view::dragEnterEvent(QDragEnterEvent *event)
+{
+    event->accept();
+    QVariant var = property("client_id");
 }

@@ -14,6 +14,7 @@
 #include <QVector>
 #include <QMouseEvent>
 #include "Models/select_model.h"
+#include <QMimeData>
 
 class Scene_view : public QGraphicsView
 {
@@ -37,6 +38,9 @@ public:
 
     int map_pix_step = 15;
 
+
+    virtual void dropEvent(QDropEvent *event) override;
+    virtual void dragEnterEvent(QDragEnterEvent *event) override;
     // QWidget interface
 public slots:
     void generate_map();
@@ -47,6 +51,7 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
+    void dragMoveEvent(QDragMoveEvent *event) override;
 };
 
 #endif // SCENE_VIEW_H

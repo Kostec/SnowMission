@@ -27,9 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
     quest->questType = Quest::QuestType::Clear;
     questWidget.AddQuest(quest);
 
-    mainLayout.addWidget(&questWidget);
 
-    mainLayout.addWidget(&view);
+    mainLayout.addWidget(&questWidget);
 
     client_model *client = new client_model(nullptr);
     client->Lalittude = 12.5;
@@ -42,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(&server, SIGNAL(new_client(client_model*)), &questWidget, SLOT(AddClient(client_model*)));
     Scene_view *map = new Scene_view();
+
+    mainLayout.addWidget(map);
     map->show();
 }
 
