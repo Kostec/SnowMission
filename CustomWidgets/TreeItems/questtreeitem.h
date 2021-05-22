@@ -1,10 +1,10 @@
 #ifndef QUESTTREEITEM_H
 #define QUESTTREEITEM_H
 
-#include <QTreeWidgetItem>
-#include "Models/quest.h"
+#include <CustomWidgets/TreeItems/treeitem.h>
+#include <Models/quest.h>
 
-class QuestTreeItem : public QTreeWidgetItem
+class QuestTreeItem: public TreeItem
 {
 public:
     QuestTreeItem(Quest *quest);

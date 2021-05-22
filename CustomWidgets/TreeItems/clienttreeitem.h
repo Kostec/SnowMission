@@ -1,11 +1,10 @@
 #ifndef CLIENTTREEITEM_H
 #define CLIENTTREEITEM_H
 
-#include <QTreeWidgetItem>
-
+#include <CustomWidgets/TreeItems/treeitem.h>
 #include <Models/client_model.h>
 
-class ClientTreeItem : public QTreeWidgetItem
+class ClientTreeItem : public TreeItem
 {
 public:
     ClientTreeItem(client_model *client);

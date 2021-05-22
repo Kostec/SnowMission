@@ -2,6 +2,7 @@
 
 QuestTreeItem::QuestTreeItem(Quest *quest)
 {
+    type = TreeItem::ItemType::QUEST;
     this->quest = quest;
     setData(0, 0, QVariant(QString("quest %1").arg(quest->id)));
     setData(1, 0, QVariant(Quest::QuestStateString()[quest->questState]));
