@@ -1,8 +1,8 @@
 #ifndef QUESTTREEITEM_H
 #define QUESTTREEITEM_H
 
-#include <CustomWidgets/TreeItems/treeitem.h>
-#include <Models/quest.h>
+#include "CustomWidgets/TreeItems/treeitem.h"
+#include "Models/quest.h"
 
 class QuestTreeItem: public TreeItem
 {

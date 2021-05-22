@@ -12,6 +12,7 @@ SOURCES += \
     Controllers/questcontroller.cpp \
     CustomWidgets/TreeItems/clienttreeitem.cpp \
     CustomWidgets/TreeItems/questtreeitem.cpp \
+    CustomWidgets/TreeItems/treeitem.cpp \
     CustomWidgets/mapview.cpp \
     CustomWidgets/questtreewidget.cpp \
     CustomWidgets/scene_view.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     Controllers/questcontroller.h \
     CustomWidgets/TreeItems/clienttreeitem.h \
     CustomWidgets/TreeItems/questtreeitem.h \
+    CustomWidgets/TreeItems/treeitem.h \
     CustomWidgets/mapview.h \
     CustomWidgets/questtreewidget.h \
     CustomWidgets/scene_view.h \

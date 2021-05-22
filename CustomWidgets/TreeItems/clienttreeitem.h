@@ -1,8 +1,8 @@
 #ifndef CLIENTTREEITEM_H
 #define CLIENTTREEITEM_H
 
-#include <CustomWidgets/TreeItems/treeitem.h>
-#include <Models/client_model.h>
+#include "CustomWidgets/TreeItems/treeitem.h"
+#include "Models/client_model.h"
 
 class ClientTreeItem : public TreeItem
 {
