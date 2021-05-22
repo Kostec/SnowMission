@@ -64,11 +64,6 @@ void QuestTreeWidget::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void QuestTreeWidget::dropEvent(QDropEvent *event)
-{
-    qDebug() << "drop event";
-}
-
 
 void QuestTreeWidget::AddClient(client_model( *client))
 {
