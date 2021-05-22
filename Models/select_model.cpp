@@ -1,4 +1,5 @@
 #include "select_model.h"
+#include <QDebug>
 
 Select_model::Select_model(QList<map_cell> cells, int map_pix_step)
 {
@@ -6,6 +7,9 @@ Select_model::Select_model(QList<map_cell> cells, int map_pix_step)
     map_step = map_pix_step;
     RectBuilder(cells);
     S = Cells.size()*map_pix_step*map_pix_step;
+    id = countId++;
+
+    qDebug() << "selectModel" << id;
 }
 
 void Select_model::RectBuilder(QList<map_cell> cells)

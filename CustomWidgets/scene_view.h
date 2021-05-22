@@ -17,6 +17,7 @@
 #include "Models/client_model.h"
 #include <QMimeData>
 #include "math/path_finder.h"
+#include <Models/quest.h>
 
 class Scene_view : public QGraphicsView
 {
@@ -40,10 +41,12 @@ public:
 
     int map_pix_step = 15;
     QList<client_model*> client_list;
+    QList<Select_model*> selectModels;
 
     virtual void dropEvent(QDropEvent *event) override;
     virtual void dragEnterEvent(QDragEnterEvent *event) override;
     // QWidget interface
+    Quest *CreateQuest(Quest::QuestType type);
 public slots:
     void generate_map();
     void new_unit(client_model *client);
@@ -56,6 +59,10 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
     void dragMoveEvent(QDragMoveEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
+
+signals:
+    void createQuest(Quest::QuestType, int clientModelId);
+    void removeQuest(int questId);
 
 };
 

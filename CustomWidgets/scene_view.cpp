@@ -68,10 +68,15 @@ void Scene_view::mousePressEvent(QMouseEvent *event)
             if (model != nullptr)
             {
                 QMenu* menu = new QMenu();
-                menu->addAction("Уборка");
-                menu->addAction("Проверка");
-                menu->addAction("Вывоз снега");
-                menu->addAction("Удалить", this, [this, model]{this->scene->removeItem(model);});
+                menu->addAction("Уборка", this, [this, model]{ emit createQuest(Quest::Clear, model->id); });
+                menu->addAction("Проверка", this, [this, model]{ emit createQuest(Quest::Visit, model->id); });
+                menu->addAction("Вывоз снега", this, [this, model]{ emit createQuest(Quest::Overflow, model->id); });
+                menu->addAction("Удалить", this, [this, model]
+                {
+                    this->scene->removeItem(model);
+                    selectModels.removeAll(model);
+                    emit removeQuest(model->questId);
+                });
                 menu->exec(cursor().pos());
                 break;
             }
@@ -88,6 +93,12 @@ void Scene_view::mousePressEvent(QMouseEvent *event)
     }
     }
 
+}
+
+
+Quest *Scene_view::CreateQuest(Quest::QuestType type){
+    Quest *quest = new Quest();
+    quest->questType = type;
 }
 
 void Scene_view::mouseMoveEvent(QMouseEvent *event)
@@ -120,6 +131,8 @@ void Scene_view::mouseReleaseEvent(QMouseEvent *event)
         scene->removeItem(select_region);
         delete select_region;
         select_event = false;
+
+        selectModels.append(new_select_item);
         break;
     }
     case Qt::RightButton:
