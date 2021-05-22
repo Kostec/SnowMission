@@ -16,6 +16,7 @@
 #include "Models/select_model.h"
 #include "Models/client_model.h"
 #include <QMimeData>
+#include "math/path_finder.h"
 
 class Scene_view : public QGraphicsView
 {
@@ -25,7 +26,7 @@ public:
     QGraphicsScene *scene;
     QGraphicsPixmapItem *map_item;
     QGraphicsRectItem *select_region;
-
+    Path_finder *finder;
     QPoint map_size;
     QVector<QVector<map_cell>> Map;
     QPoint mapDragStartPos;
@@ -38,7 +39,7 @@ public:
     qreal view_scale = 1.0;
 
     int map_pix_step = 15;
-
+    QList<client_model*> client_list;
 
     virtual void dropEvent(QDropEvent *event) override;
     virtual void dragEnterEvent(QDragEnterEvent *event) override;

@@ -2,7 +2,6 @@
 
 Path_finder::Path_finder(QVector<QVector<map_cell>> *map, QObject *parent) : QObject(parent)
 {
-    AStar::Generator generator;
     QSize map_size = QSize(map->at(0).size(),map->size());
     generator.setWorldSize({map_size.width(), map_size.height()});
     generator.setHeuristic(AStar::Heuristic::euclidean);
@@ -14,10 +13,17 @@ Path_finder::Path_finder(QVector<QVector<map_cell>> *map, QObject *parent) : QOb
                 generator.addCollision({i,j});
 
 
-    std::cout << "Generate path ... \n";
-    auto path = generator.findPath({0, 0}, {20, 20});
 
+}
+
+QList<QPoint> Path_finder::GeneratrPath(QPoint start, QPoint end)
+{
+    auto path = generator.findPath({start.x(),start.y()}, {end.x(),end.y()});
+    QList<QPoint> rezult;
     for(auto& coordinate : path) {
-        std::cout << coordinate.x << " " << coordinate.y << "\n";
+        QPoint cell;
+        cell = QPoint(coordinate.x,coordinate.y);
+        rezult.append(cell);
     }
+    return rezult;
 }

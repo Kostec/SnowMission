@@ -7,6 +7,7 @@
 
 Scene_view::Scene_view()
 {
+
     scene = new QGraphicsScene(this);
     this->setScene(scene);
     map_item = new QGraphicsPixmapItem(QPixmap(":/Ikons/map.jpg"));
@@ -14,8 +15,9 @@ Scene_view::Scene_view()
     ViewPoint = map_item->boundingRect().center();
     this->centerOn(ViewPoint);
     generate_map();
+    finder = new Path_finder(&Map);
 
-//    setAcceptDrops(true);
+    //    setAcceptDrops(true);
 }
 
 void Scene_view::wheelEvent(QWheelEvent *event)
@@ -73,11 +75,19 @@ void Scene_view::mousePressEvent(QMouseEvent *event)
                 menu->exec(cursor().pos());
                 break;
             }
+            else
+            {
+                for (int i = 0;i<client_list.size() ; i++ )
+                {
+                    client_model *client = client_list.at(i);
+                    client->MoveTo(QPoint(qRound(scene_point.x()/map_pix_step),qRound(scene_point.y()/map_pix_step)));
+                }
+            }
         }
-
         break;
     }
     }
+
 }
 
 void Scene_view::mouseMoveEvent(QMouseEvent *event)
@@ -207,10 +217,12 @@ void Scene_view::generate_map()
 
 void Scene_view::new_unit(client_model *client)
 {
+    connect(client,SIGNAL(scene_update()),scene,SLOT(update()));
+    client->Finder = finder;
     scene->addItem(client->icon_item);
     client->icon_item->show();
     scene->update();
-
+    client_list.append(client);
     QPoint point = QPoint(qRound(client->icon_item->pos().x()/map_pix_step),qRound(client->icon_item->pos().y()/map_pix_step));
     while (!Map[point.y()][point.x()].road)
     {

@@ -7,7 +7,7 @@
 #include <QDebug>
 #include <QTcpSocket>
 #include <QtNetwork>
-
+#include "math/path_finder.h"
 #include "Models/client_model.h"
 
 
@@ -17,10 +17,12 @@ class Server : public QTcpServer
 public:
     Server();
 
+    Path_finder *finder;
     int Id_counter = 1;
 public slots:
 
     void spawn(int count);
+
 signals:
     void new_client(client_model *client);
 

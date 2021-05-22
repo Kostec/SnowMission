@@ -6,14 +6,8 @@
 #include <QPainter>
 #include <QBrush>
 #include <QRectF>
+#include "Models/map_cell.h"
 
-struct map_cell
-{
-    QPoint pos;
-    bool road = false;
-    bool plane_colision = false;
-    bool unit_colision = false;
-};
 
 class Select_model : public QGraphicsRectItem
 {

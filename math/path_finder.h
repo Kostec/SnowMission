@@ -6,22 +6,18 @@
 #include <iostream>
 #include <QPoint>
 #include <QSize>
-
-struct map_cell
-{
-    QPoint pos;
-    bool road = false;
-    bool plane_colision = false;
-    bool unit_colision = false;
-};
+#include "Models/map_cell.h"
 
 
 class Path_finder : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Path_finder(QVector<QVector<map_cell>> *map, QObject *parent = nullptr);
-
+    AStar::Generator generator;
+public slots:
+    QList<QPoint> GeneratrPath(QPoint start, QPoint end);
 signals:
 
 };

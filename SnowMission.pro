@@ -37,6 +37,7 @@ HEADERS += \
     CustomWidgets/scene_view.h \
     Models/client_model.h \
     Models/graphics_model.h \
+    Models/map_cell.h \
     Models/quest.h \
     Models/select_model.h \
     mainwindow.h \

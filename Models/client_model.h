@@ -12,7 +12,9 @@
 #include "server/packets/inform_packet1.h"
 #include "server/packets/type_packet.h"
 #include "graphics_model.h"
-
+#include <QTimer>
+#include "math/path_finder.h"
+#include "Models/map_cell.h"
 
 class client_model : public QObject
 {
@@ -39,13 +41,12 @@ public:
         Reagent_brush_machine
     };
 
-    explicit client_model(int type, int id, QObject *parent = nullptr);
+    explicit client_model(int type, int id, Path_finder *finder = nullptr, QObject *parent = nullptr);
 
     QTcpSocket *socket = nullptr;
-//    Graphics_model *view_item = nullptr;
-
     QGraphicsPixmapItem *icon_item;
     QGraphicsSimpleTextItem *ID_item;
+    Path_finder *Finder;
 
     QString Start_SIGNATURE = "[START]";
 
@@ -60,16 +61,20 @@ public:
     float Lalittude = 0;
 
     float Power = 0;
-
-
+    int map_pix_step = 15;
+    bool move_event = false;
+    QTimer move_timer;
+    QList<QPoint> Path;
+    int move_count = 0;
 
 public slots:
     void resive_Data();
-
     void telemetry_pars(QByteArray body);
-
     void type_pars(QByteArray body);
+    void update();
+    void MoveTo(QPoint target);
 signals:
+    void scene_update();
 
 private slots:
     int readInt();

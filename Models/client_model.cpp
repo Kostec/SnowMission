@@ -1,7 +1,9 @@
 #include "client_model.h"
+#include "math/path_finder.h"
 
-client_model::client_model(int type,int id, QObject *parent) : QObject(parent)
+client_model::client_model(int type, int id, Path_finder *finder, QObject *parent) : QObject(parent)
 {
+    Finder = finder;
     unit_ID = id;
     unit_Type = type;
     icon_item = new QGraphicsPixmapItem();
@@ -39,6 +41,7 @@ client_model::client_model(int type,int id, QObject *parent) : QObject(parent)
     ID_item->setPos(-ID_item->boundingRect().width()/2,-(icon_item->pixmap().height() + ID_item->boundingRect().height() + 5)/2);
     icon_item->show();
     ID_item->show();
+    connect(&move_timer,SIGNAL(timeout()),this,SLOT(update()));
 //    socket = _socket;
 //    connect(socket,SIGNAL(readyRead()),this,SLOT(resive_Data()));
 }
@@ -129,10 +132,6 @@ int client_model::readInt2() {
     int b = (bytes.at(1) & 0xFF) << 16;
     int c = (bytes.at(2) & 0xFF) << 8;
     int d = bytes.at(3) & 0xFF;
-//    int a = bytes.at(0) << 24;
-//    int b = bytes.at(1) << 16;
-//    int c = bytes.at(2) << 8;
-//    int d = bytes.at(3);
     return (a | b | c | d);
 }
 
@@ -150,10 +149,31 @@ void client_model::telemetry_pars(QByteArray body)
 
 void client_model::type_pars(QByteArray body)
 {
-//    type_packet packet;
-//    if (!packet.setBytes(body)) return;
-//    unit_Type = packet.data_packet->type;
-//    qDebug()<<"unit_Type"<<unit_Type;
-//    if (view_item != nullptr) return;
-//    view_item = new Graphics_model(unit_Type,unit_ID);
+
+}
+
+void client_model::update()
+{
+    if(!move_event) return;
+    this->icon_item->setPos(QPointF(Path.at(Path.size()-move_count-1).x()*map_pix_step-this->icon_item->pixmap().width()/2,
+                                    Path.at(Path.size()-move_count-1).y()*map_pix_step-this->icon_item->pixmap().height()/2));
+    move_count++;
+    if (move_count == Path.size())
+    {
+        move_event = false;
+        move_count = 0;
+        move_timer.stop();
+    }
+    emit scene_update();
+}
+
+void client_model::MoveTo(QPoint target)
+{
+    QPoint start;
+    start = QPoint(this->icon_item->pos().x()/map_pix_step,this->icon_item->pos().y()/map_pix_step);
+
+    Path = Finder->GeneratrPath(start,target);
+    move_event = true;
+    qDebug()<<"Path.size();"<<Path.size();
+    move_timer.start(20);
 }
