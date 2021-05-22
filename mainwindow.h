@@ -5,10 +5,6 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-
-
-
-#include <CustomWidgets/mapview.h>
 #include <CustomWidgets/questtreewidget.h>
 #include "CustomWidgets/scene_view.h"
 
@@ -31,7 +27,6 @@ public:
     QuestTreeWidget questWidget;
 
     QGraphicsScene scene;
-    MapView view;
 
     Server server;
 

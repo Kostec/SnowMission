@@ -52,6 +52,8 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void dragMoveEvent(QDragMoveEvent *event) override;
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
+
 };
 
 #endif // SCENE_VIEW_H

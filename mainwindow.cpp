@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
     client->Velosity = 5.5;
     client->Work_id = 99;
     questWidget.AddClient(client);
+    questWidget.setMinimumWidth(200);
 
     connect(&server, SIGNAL(new_client(client_model*)), &questWidget, SLOT(AddClient(client_model*)));
     Scene_view *map = new Scene_view();

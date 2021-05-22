@@ -113,6 +113,11 @@ void Scene_view::dragMoveEvent(QDragMoveEvent *event)
     }
 }
 
+void Scene_view::mouseDoubleClickEvent(QMouseEvent *event)
+{
+
+}
+
 QList<map_cell> Scene_view::MapSelectCells(QRectF rect)
 {
     QList<map_cell> rezult;
