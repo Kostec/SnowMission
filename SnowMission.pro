@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
 CONFIG += c++11
 
@@ -12,9 +12,11 @@ SOURCES += \
     Controllers/questcontroller.cpp \
     CustomWidgets/mapview.cpp \
     CustomWidgets/questtreewidget.cpp \
+    CustomWidgets/scene_view.cpp \
     Model/quest.cpp \
     Models/client_model.cpp \
     Models/graphics_model.cpp \
+    Models/select_model.cpp \
     main.cpp \
     mainwindow.cpp \
     server/packets/abstract_packet_class.cpp \
@@ -26,9 +28,11 @@ HEADERS += \
     Controllers/questcontroller.h \
     CustomWidgets/mapview.h \
     CustomWidgets/questtreewidget.h \
+    CustomWidgets/scene_view.h \
     Model/quest.h \
     Models/client_model.h \
     Models/graphics_model.h \
+    Models/select_model.h \
     mainwindow.h \
     server/packets/abstract_packet_class.h \
     server/packets/inform_packet1.h \
@@ -42,3 +46,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    Res.qrc
