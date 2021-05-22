@@ -32,6 +32,7 @@ public:
     Server server;
 
 public slots:
+    void MoveClientToSelect(int clientId, int questId);
     void CreateQuest(Quest::QuestType type, int selectModelid);
     void RemoveQuest(int questId);
     void AddClientToTree(client_model *client);

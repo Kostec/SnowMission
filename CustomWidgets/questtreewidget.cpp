@@ -61,7 +61,8 @@ void QuestTreeWidget::mouseMoveEvent(QMouseEvent *event)
 
 void QuestTreeWidget::AddClient(client_model *client)
 {
-    QTreeWidgetItem *item = new ClientTreeItem(client);
+    ClientTreeItem *item = new ClientTreeItem(client);
+    clientTree.insert(client->unit_ID, item);
     units_item.addChild(item);
 }
 
@@ -72,12 +73,17 @@ void QuestTreeWidget::AddQuest(Quest *quest)
         QTreeWidgetItem *root = new QTreeWidgetItem();
         root->setData(0,0,QVariant(Quest::QuesTypeString(quest->questType)));
         addTopLevelItem(root);
-
         typeItemMap.insert(quest->questType, root);
+        root->setExpanded(true);
     }
-    QTreeWidgetItem *item = new QuestTreeItem(quest);
+    QuestTreeItem *item = new QuestTreeItem(quest);
     typeItemMap[quest->questType]->addChild(item);
     questItemMap.insert(quest, item);
+
+    questItems.insert(quest->id, item);
+
+    item->setExpanded(true);
+
     qDebug() << "item added";
 }
 
@@ -98,10 +104,20 @@ void QuestTreeWidget::RemoveQuestById(int id)
         if (quest->id == id)
         {
             QTreeWidgetItem *item = questItemMap[quest];
-            questItemMap.remove(quest);
+            questItemMap.remove(quest);            
             typeItemMap[quest->questType]->removeChild(item);
+
+            for(int i =0; i < item->childCount(); i++)
+            {
+                QTreeWidgetItem *temp = item->child(i);
+                item->removeChild(temp);
+                units_item.addChild(temp);
+            }
+
+            break;
         }
     }
+    questItems.remove(id);
 }
 
 void QuestTreeWidget::QuestUpdate(Quest *quest)
@@ -126,4 +142,22 @@ void QuestTreeWidget::QuestChangeState(Quest *quest, Quest::QuestState state)
         item->setData(1, 0, QVariant(Quest::QuestStateString()[state]));
         qDebug() << "item state updated";
     }
+}
+
+void QuestTreeWidget::MoveClientToQuest(int clientId, int QuestId)
+{
+    ClientTreeItem *clientItem;
+    QuestTreeItem *questItem;
+    if (clientTree.keys().contains(clientId))
+        clientItem = clientTree[clientId];
+    else return;
+    if (questItems.keys().contains(QuestId))
+        questItem = questItems[QuestId];
+    else return;
+
+//    units_item.removeChild(clientItem);
+    clientItem->parent()->removeChild(clientItem);
+    questItem->addChild(clientItem);
+
+    update();
 }

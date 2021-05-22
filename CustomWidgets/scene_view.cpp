@@ -269,11 +269,16 @@ void Scene_view::dropEvent(QDropEvent *event)
                 {
                     client->MoveTo(QPoint(qRound(mapToScene(event->pos()).x()/map_pix_step),
                                           qRound(mapToScene(event->pos()).y()/map_pix_step)));
+
+                    emit moveClientToSelect(client->unit_ID, model->questId);
+
                     break;
                 }
             }
             break;
         }
+
+
     }
 
 

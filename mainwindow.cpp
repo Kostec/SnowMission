@@ -34,6 +34,15 @@ MainWindow::MainWindow(QWidget *parent)
     foreach(client_model* client, map->client_list)
         questWidget.AddClient(client);
 
+    questWidget.selectModels = &map->selectModels;
+    questWidget.client_list = &map->client_list;
+
+    connect(map, SIGNAL(moveClientToSelect(int, int)), this, SLOT(MoveClientToSelect(int, int)));
+}
+
+void MainWindow::MoveClientToSelect(int clientId, int questId)
+{
+    questWidget.MoveClientToQuest(clientId, questId);
 }
 
 void MainWindow::CreateQuest(Quest::QuestType type, int selectModelid)

@@ -47,6 +47,7 @@ public:
     virtual void dragEnterEvent(QDragEnterEvent *event) override;
     // QWidget interface
     Quest *CreateQuest(Quest::QuestType type);
+
 public slots:
     void generate_map();
     void new_unit(client_model *client);
@@ -64,6 +65,7 @@ signals:
     void createQuest(Quest::QuestType, int clientModelId);
     void removeQuest(int questId);
     void addClientToTree(client_model* client);
+    void moveClientToSelect(int clientId, int questId);
 
 };
 

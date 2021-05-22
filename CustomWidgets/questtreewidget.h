@@ -7,6 +7,7 @@
 #include <CustomWidgets/TreeItems/questtreeitem.h>
 #include <CustomWidgets/TreeItems/clienttreeitem.h>
 #include <Models/quest.h>
+#include <Models/select_model.h>
 #include <QObject>
 
 class QuestTreeWidget: public QTreeWidget
@@ -23,9 +24,17 @@ public:
 
     Quest* AddQuest(Quest::QuestType type, int selectModelId);
     void RemoveQuestById(int id);
+    QList<Select_model*>* selectModels;
+    QList<client_model*>* client_list;
+
+    QMap<uint, ClientTreeItem*> clientTree;
+    QMap<int, QuestTreeItem*> questItems;
+
+    void MoveClientToQuest(int clientId, int QuestId);
 private:
     QMap<Quest::QuestType, QTreeWidgetItem*> typeItemMap;
     QMap<Quest*, QTreeWidgetItem*> questItemMap;
+
     QTreeWidgetItem units_item;
 
 public slots:
