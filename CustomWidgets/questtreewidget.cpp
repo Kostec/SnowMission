@@ -52,11 +52,13 @@ void QuestTreeWidget::mouseMoveEvent(QMouseEvent *event)
 
         foreach(QTreeWidgetItem* item, selectedItems())
         {
-            client_model *client = ((ClientTreeItem*)item)->client;
+            TreeItem *treeItem = static_cast<TreeItem*>(item);
+            if(!treeItem) return;
 
             QDrag *drag = new QDrag(this);
             QMimeData *mimeData = new QMimeData;
-            mimeData->setProperty("client_id", QVariant(client->Work_id));
+            mimeData->setProperty("type_item", QVariant(treeItem->type));
+            mimeData->setProperty("client_id", QVariant(static_cast<ClientTreeItem*>(treeItem)->client->Work_id));
             drag->setMimeData(mimeData);
 
             event->accept();
