@@ -1,4 +1,5 @@
 #include "server.h"
+#include <QRandomGenerator>
 
 Server::Server()
 {
@@ -11,7 +12,7 @@ Server::Server()
             break;
         }
     }
-    if (ipAddress.isEmpty())
+    if (!ipAddress.isEmpty())
         ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
     if (!this->listen(QHostAddress(ipAddress),50000)) {
         qDebug() << "Error create";
@@ -19,6 +20,20 @@ Server::Server()
     }
     qDebug() << tr("The server is running on\n\nIP: %1\nport: %2\n\n")
                 .arg(this->serverAddress().toString()).arg(this->serverPort());
+}
+
+void Server::spawn(int count)
+{
+    QRandomGenerator generator;
+        for (int i = 0;i<count;i++)
+        {
+            client_model *client = new client_model(QRandomGenerator::global()->bounded(1,6),Id_counter);
+            client->Lalittude = QRandomGenerator::global()->bounded(200,12000);
+            client->Longituge = QRandomGenerator::global()->bounded(200,5000);
+            client->icon_item->setPos(client->Lalittude,client->Longituge);
+            Id_counter++;
+            emit new_client(client);
+        }
 }
 
 void Server::incomingConnection(qintptr descriptor)
@@ -33,8 +48,4 @@ void Server::incomingConnection(qintptr descriptor)
     }
     addPendingConnection(socket);
     qDebug() << "Incoming Connection on server from " + socket->peerAddress().toString();
-    client_model *client = new client_model(socket);
-    client->unit_ID = Id_counter;
-    Id_counter++;
-    emit new_client(client);
 }

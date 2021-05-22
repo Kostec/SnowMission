@@ -1,6 +1,7 @@
 #include "scene_view.h"
 
 #include <CustomWidgets/TreeItems/treeitem.h>
+#include <QRandomGenerator>
 
 Scene_view::Scene_view()
 {
@@ -179,8 +180,19 @@ void Scene_view::generate_map()
 
 void Scene_view::new_unit(client_model *client)
 {
-    scene->addItem(client->view_item);
+    scene->addItem(client->icon_item);
+    client->icon_item->show();
     scene->update();
+
+    QPoint point = QPoint(qRound(client->icon_item->pos().x()/map_pix_step),qRound(client->icon_item->pos().y()/map_pix_step));
+    while (!Map[point.y()][point.x()].road)
+    {
+
+        client->Lalittude = QRandomGenerator::global()->bounded(200,12000);
+        client->Longituge = QRandomGenerator::global()->bounded(200,5000);
+        point = QPoint(client->Lalittude/map_pix_step,client->Longituge/map_pix_step);
+    }
+    client->icon_item->setPos(client->Lalittude-client->icon_item->pixmap().width()/2,client->Longituge-client->icon_item->pixmap().height()/2);
 }
 void Scene_view::dropEvent(QDropEvent *event)
 {

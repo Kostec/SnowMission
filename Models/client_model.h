@@ -5,6 +5,10 @@
 #include <QTcpSocket>
 #include <QDebug>
 #include <QString>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsSimpleTextItem>
+#include <QPixmap>
+#include <QPointF>
 #include "server/packets/inform_packet1.h"
 #include "server/packets/type_packet.h"
 #include "graphics_model.h"
@@ -35,10 +39,13 @@ public:
         Reagent_brush_machine
     };
 
-    explicit client_model(QTcpSocket *_socket, QObject *parent = nullptr);
+    explicit client_model(int type, int id, QObject *parent = nullptr);
 
     QTcpSocket *socket = nullptr;
-    Graphics_model *view_item = nullptr;
+//    Graphics_model *view_item = nullptr;
+
+    QGraphicsPixmapItem *icon_item;
+    QGraphicsSimpleTextItem *ID_item;
 
     QString Start_SIGNATURE = "[START]";
 
@@ -66,6 +73,7 @@ signals:
 
 private slots:
     int readInt();
+    int readInt2();
 };
 
 #endif // CLIENT_MODEL_H

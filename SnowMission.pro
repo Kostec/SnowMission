@@ -21,6 +21,8 @@ SOURCES += \
     Models/select_model.cpp \
     main.cpp \
     mainwindow.cpp \
+    math/AStar.cpp \
+    math/path_finder.cpp \
     server/packets/abstract_packet_class.cpp \
     server/packets/inform_packet1.cpp \
     server/packets/type_packet.cpp \
@@ -38,6 +40,8 @@ HEADERS += \
     Models/quest.h \
     Models/select_model.h \
     mainwindow.h \
+    math/AStar.hpp \
+    math/path_finder.h \
     server/packets/abstract_packet_class.h \
     server/packets/inform_packet1.h \
     server/packets/type_packet.h \

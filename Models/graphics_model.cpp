@@ -1,4 +1,5 @@
 #include "graphics_model.h"
+#include <QDebug>
 
 Graphics_model::Graphics_model(int type, int id)
 {
@@ -35,9 +36,12 @@ Graphics_model::Graphics_model(int type, int id)
         break;
     }
     }
+
     icon_item.setPos(QPointF(-icon_item.pixmap().width()/2,-icon_item.pixmap().height()/2));
     ID_item.setText(QString::number(id));
     ID_item.setPos(-ID_item.boundingRect().width()/2,-(icon_item.pixmap().height() + ID_item.boundingRect().height() + 5)/2);
+    icon_item.show();
+    ID_item.show();
 }
 
 QRectF Graphics_model::boundingRect() const

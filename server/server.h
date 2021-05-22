@@ -20,6 +20,7 @@ public:
     int Id_counter = 1;
 public slots:
 
+    void spawn(int count);
 signals:
     void new_client(client_model *client);
 

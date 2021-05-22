@@ -30,15 +30,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     mainLayout.addWidget(&questWidget);
 
-    client_model *client = new client_model(nullptr);
-    client->Lalittude = 12.5;
-    client->Longituge = 45.5;
-    client->Power = 100;
-    client->Status = 87;
-    client->Velosity = 5.5;
-    client->Work_id = 99;
-    questWidget.AddClient(client);
-    questWidget.setMinimumWidth(200);
+//    client_model *client = new client_model(nullptr);
+//    client->Lalittude = 12.5;
+//    client->Longituge = 45.5;
+//    client->Power = 100;
+//    client->Status = 87;
+//    client->Velosity = 5.5;
+//    client->Work_id = 99;
+//    questWidget.AddClient(client);
+//    questWidget.setMinimumWidth(200);
 
     connect(&server, SIGNAL(new_client(client_model*)), &questWidget, SLOT(AddClient(client_model*)));  
     Scene_view *map = new Scene_view();
@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout.addWidget(map);
     map->show();
     connect(&server, SIGNAL(new_client(client_model*)), map, SLOT(new_unit(client_model*)));
+    server.spawn(40);
 }
 
 MainWindow::~MainWindow()
