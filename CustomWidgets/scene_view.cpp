@@ -82,11 +82,13 @@ void Scene_view::mousePressEvent(QMouseEvent *event)
             }
             else
             {
-                for (int i = 0;i<client_list.size() ; i++ )
-                {
-                    client_model *client = client_list.at(i);
-                    client->MoveTo(QPoint(qRound(scene_point.x()/map_pix_step),qRound(scene_point.y()/map_pix_step)));
-                }
+                QPoint point = QPoint(qRound(scene_point.x()/map_pix_step),qRound(scene_point.y()/map_pix_step));
+                if(Map[point.y()][point.x()].road)
+                    for (int i = 0;i<client_list.size() ; i++ )
+                    {
+                        client_model *client = client_list.at(i);
+                        client->MoveTo(QPoint(qRound(scene_point.x()/map_pix_step),qRound(scene_point.y()/map_pix_step)));
+                    }
             }
         }
         break;
@@ -234,7 +236,7 @@ void Scene_view::new_unit(client_model *client)
     client->finder_start(&Map);
     scene->addItem(client->icon_item);
     client->icon_item->show();
-    scene->update();
+
     client_list.append(client);
     QPoint point = QPoint(qRound(client->icon_item->pos().x()/map_pix_step),qRound(client->icon_item->pos().y()/map_pix_step));
     while (!Map[point.y()][point.x()].road)
@@ -245,12 +247,36 @@ void Scene_view::new_unit(client_model *client)
         point = QPoint(client->Lalittude/map_pix_step,client->Longituge/map_pix_step);
     }
     client->icon_item->setPos(client->Lalittude-client->icon_item->pixmap().width()/2,client->Longituge-client->icon_item->pixmap().height()/2);
+    emit addClientToTree(client);
+    scene->update();
+
 }
 void Scene_view::dropEvent(QDropEvent *event)
 {
     qDebug() << "Map drop event";
     uint clientId = event->mimeData()->property("client_id").toUInt();
     qDebug() << "drop clientId" << clientId;
+
+    QList<QGraphicsItem*> items = scene->items(mapToScene(event->pos()));
+    foreach(QGraphicsItem *item, items)
+    {
+        Select_model *model = qgraphicsitem_cast<Select_model *>(item);
+        if (model != nullptr)
+        {
+            foreach(client_model *client, client_list)
+            {
+                if (client->unit_ID == clientId)
+                {
+                    client->MoveTo(QPoint(qRound(mapToScene(event->pos()).x()/map_pix_step),
+                                          qRound(mapToScene(event->pos()).y()/map_pix_step)));
+                    break;
+                }
+            }
+            break;
+        }
+    }
+
+
     event->accept();
 }
 

@@ -11,8 +11,8 @@ QuestTreeWidget::QuestTreeWidget()
     setColumnCount(5);
     QStringList headerList;
     headerList.append("Тип");
+    headerList.append("Название");
     headerList.append("Состояние");
-    headerList.append("Исполнитель");
     headerList.append("Дата создание");
     headerList.append("Дата завершения");
     setHeaderLabels(headerList);
@@ -20,6 +20,8 @@ QuestTreeWidget::QuestTreeWidget()
     setAcceptDrops(true);
     setDragEnabled(true);
     setDragDropMode(QAbstractItemView::InternalMove);
+    units_item.setData(0,0,QVariant("Units"));
+    addTopLevelItem(&units_item);
 }
 
 void QuestTreeWidget::dragLeaveEvent(QDragLeaveEvent *event)
@@ -42,7 +44,7 @@ void QuestTreeWidget::mouseMoveEvent(QMouseEvent *event)
             QDrag *drag = new QDrag(this);
             QMimeData *mimeData = new QMimeData;
             mimeData->setProperty("type_item", QVariant(treeItem->type));
-            mimeData->setProperty("client_id", QVariant(static_cast<ClientTreeItem*>(treeItem)->client->Work_id));
+            mimeData->setProperty("client_id", QVariant(static_cast<ClientTreeItem*>(treeItem)->client->unit_ID));
             drag->setMimeData(mimeData);
 
             event->accept();
@@ -56,7 +58,7 @@ void QuestTreeWidget::mouseMoveEvent(QMouseEvent *event)
 void QuestTreeWidget::AddClient(client_model *client)
 {
     QTreeWidgetItem *item = new ClientTreeItem(client);
-//    clientsNode->addChild(item);
+    units_item.addChild(item);
 }
 
 void QuestTreeWidget::AddQuest(Quest *quest)

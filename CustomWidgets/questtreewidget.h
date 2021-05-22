@@ -26,6 +26,7 @@ public:
 private:
     QMap<Quest::QuestType, QTreeWidgetItem*> typeItemMap;
     QMap<Quest*, QTreeWidgetItem*> questItemMap;
+    QTreeWidgetItem units_item;
 
 public slots:
     void QuestUpdate(Quest *quest);

@@ -28,6 +28,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(map, SIGNAL(createQuest(Quest::QuestType, int)), this, SLOT(CreateQuest(Quest::QuestType, int)));
 
     connect(map, SIGNAL(removeQuest(int)), this, SLOT(RemoveQuest(int)));
+
+    connect(map,SIGNAL(addClientToTree(client_model* )),this,SLOT(AddClientToTree(client_model *)));
+
+    foreach(client_model* client, map->client_list)
+        questWidget.AddClient(client);
+
 }
 
 void MainWindow::CreateQuest(Quest::QuestType type, int selectModelid)
@@ -46,6 +52,10 @@ void MainWindow::RemoveQuest(int questId)
 {
     questWidget.RemoveQuestById(questId);
 
+}
+void MainWindow::AddClientToTree(client_model* client)
+{
+    questWidget.AddClient(client);
 }
 
 MainWindow::~MainWindow()

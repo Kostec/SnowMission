@@ -63,6 +63,7 @@ protected:
 signals:
     void createQuest(Quest::QuestType, int clientModelId);
     void removeQuest(int questId);
+    void addClientToTree(client_model* client);
 
 };
 

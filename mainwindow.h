@@ -34,6 +34,7 @@ public:
 public slots:
     void CreateQuest(Quest::QuestType type, int selectModelid);
     void RemoveQuest(int questId);
+    void AddClientToTree(client_model *client);
 private:
     Ui::MainWindow *ui;
 };
