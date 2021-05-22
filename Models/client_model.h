@@ -41,7 +41,7 @@ public:
         Reagent_brush_machine
     };
 
-    explicit client_model(int type, int id, Path_finder *finder = nullptr, QObject *parent = nullptr);
+    explicit client_model(int type, int id, QObject *parent = nullptr);
 
     QTcpSocket *socket = nullptr;
     QGraphicsPixmapItem *icon_item;
@@ -61,7 +61,7 @@ public:
     float Lalittude = 0;
 
     float Power = 0;
-    int map_pix_step = 15;
+    int map_pix_step = 30;
     bool move_event = false;
     QTimer move_timer;
     QList<QPoint> Path;
@@ -73,8 +73,11 @@ public slots:
     void type_pars(QByteArray body);
     void update();
     void MoveTo(QPoint target);
+    void newPath(QList<QPoint> arg);
+    void finder_start(QVector<QVector<map_cell> > *Map);
 signals:
     void scene_update();
+    void findePath(QPoint start,QPoint end);
 
 private slots:
     int readInt();

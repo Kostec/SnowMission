@@ -16,7 +16,7 @@ Path_finder::Path_finder(QVector<QVector<map_cell>> *map, QObject *parent) : QOb
 
 }
 
-QList<QPoint> Path_finder::GeneratrPath(QPoint start, QPoint end)
+void Path_finder::GeneratrPath(QPoint start, QPoint end)
 {
     auto path = generator.findPath({start.x(),start.y()}, {end.x(),end.y()});
     QList<QPoint> rezult;
@@ -25,5 +25,5 @@ QList<QPoint> Path_finder::GeneratrPath(QPoint start, QPoint end)
         cell = QPoint(coordinate.x,coordinate.y);
         rezult.append(cell);
     }
-    return rezult;
+    emit newPath(rezult);
 }

@@ -17,8 +17,9 @@ public:
     explicit Path_finder(QVector<QVector<map_cell>> *map, QObject *parent = nullptr);
     AStar::Generator generator;
 public slots:
-    QList<QPoint> GeneratrPath(QPoint start, QPoint end);
+    void GeneratrPath(QPoint start, QPoint end);
 signals:
+    void newPath(QList<QPoint> path);
 
 };
 

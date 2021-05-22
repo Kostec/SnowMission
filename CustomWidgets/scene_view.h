@@ -38,7 +38,7 @@ public:
     bool select_event = false;
     qreal view_scale = 1.0;
 
-    int map_pix_step = 15;
+    int map_pix_step = 30;
     QList<client_model*> client_list;
 
     virtual void dropEvent(QDropEvent *event) override;

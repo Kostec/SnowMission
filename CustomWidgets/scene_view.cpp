@@ -122,7 +122,7 @@ void Scene_view::mouseReleaseEvent(QMouseEvent *event)
         select_event = false;
         break;
     }
-    case Qt::RightButton:
+    case Qt::MiddleButton:
     {
         mapDragStartPos = QPoint();
         move_event = false;
@@ -218,7 +218,7 @@ void Scene_view::generate_map()
 void Scene_view::new_unit(client_model *client)
 {
     connect(client,SIGNAL(scene_update()),scene,SLOT(update()));
-    client->Finder = finder;
+    client->finder_start(&Map);
     scene->addItem(client->icon_item);
     client->icon_item->show();
     scene->update();

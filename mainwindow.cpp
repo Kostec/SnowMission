@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    qRegisterMetaType<QList<QPoint>>("List of points");
+
     this->centralWidget()->setLayout(&mainLayout);
 
     Quest *quest = new Quest();
@@ -46,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout.addWidget(map);
     map->show();
     connect(&server, SIGNAL(new_client(client_model*)), map, SLOT(new_unit(client_model*)));
-    server.spawn(5);
+    server.spawn(30);
 }
 
 MainWindow::~MainWindow()

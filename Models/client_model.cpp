@@ -1,9 +1,9 @@
 #include "client_model.h"
 #include "math/path_finder.h"
+#include <QThread>
 
-client_model::client_model(int type, int id, Path_finder *finder, QObject *parent) : QObject(parent)
+client_model::client_model(int type, int id,  QObject *parent) : QObject(parent)
 {
-    Finder = finder;
     unit_ID = id;
     unit_Type = type;
     icon_item = new QGraphicsPixmapItem();
@@ -44,6 +44,17 @@ client_model::client_model(int type, int id, Path_finder *finder, QObject *paren
     connect(&move_timer,SIGNAL(timeout()),this,SLOT(update()));
 //    socket = _socket;
 //    connect(socket,SIGNAL(readyRead()),this,SLOT(resive_Data()));
+}
+
+void client_model::finder_start( QVector<QVector<map_cell> > *Map)
+{
+    Finder = new Path_finder(Map);
+    connect(this,SIGNAL(findePath(QPoint,QPoint)),Finder,SLOT(GeneratrPath(QPoint, QPoint)));
+    connect(Finder,SIGNAL(newPath(QList<QPoint>)),this,SLOT(newPath(QList<QPoint>)));
+    QThread *finder_thread = new QThread(this);
+    Finder->moveToThread(finder_thread);
+    finder_thread->start(QThread::TimeCriticalPriority);
+
 }
 
 void client_model::resive_Data()
@@ -171,9 +182,14 @@ void client_model::MoveTo(QPoint target)
 {
     QPoint start;
     start = QPoint(this->icon_item->pos().x()/map_pix_step,this->icon_item->pos().y()/map_pix_step);
+    emit findePath(start,target);
 
-    Path = Finder->GeneratrPath(start,target);
+}
+void client_model::newPath(QList<QPoint> arg)
+{
+    Path = arg;
     move_event = true;
+    move_count = 0;
     qDebug()<<"Path.size();"<<Path.size();
-    move_timer.start(20);
+    move_timer.start(50);
 }
