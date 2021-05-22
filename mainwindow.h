@@ -11,6 +11,8 @@
 #include <CustomWidgets/mapview.h>
 #include <CustomWidgets/questtreewidget.h>
 
+#include <server/server.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -29,6 +31,8 @@ public:
 
     QGraphicsScene scene;
     MapView view;
+
+    Server server;
 
 private:
     Ui::MainWindow *ui;

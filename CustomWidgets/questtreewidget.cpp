@@ -49,26 +49,28 @@ void QuestTreeWidget::mouseMoveEvent(QMouseEvent *event)
     {
         if (selectedItems().count() < 1) return;
         qDebug() << "selected drag items count " << selectedItems().count();
-        QDrag *drag = new QDrag(this);
-        QMimeData *mimeData = new QMimeData;
 
-        client_model *client = ((ClientTreeItem*)selectedItems().at(0))->client;
+        foreach(QTreeWidgetItem* item, selectedItems())
+        {
+            client_model *client = ((ClientTreeItem*)item)->client;
 
-        qDebug() << "work id" << client->Work_id;
-        mimeData->setProperty("client_id", QVariant(client->Work_id));
-        drag->setMimeData(mimeData);
+            QDrag *drag = new QDrag(this);
+            QMimeData *mimeData = new QMimeData;
+            mimeData->setProperty("client_id", QVariant(client->Work_id));
+            drag->setMimeData(mimeData);
 
+            event->accept();
 
-        Qt::DropAction result = drag->exec( Qt::MoveAction );
-        qDebug() << "Drop action result: " << result;
+            Qt::DropAction result = drag->exec( Qt::MoveAction );
+            qDebug() << "Drop action result: " << result;
+        }
     }
 }
 
 
-void QuestTreeWidget::AddClient(client_model( *client))
+void QuestTreeWidget::AddClient(client_model *client)
 {
     QTreeWidgetItem *item = new ClientTreeItem(client);
-
     clientsNode->addChild(item);
 }
 
@@ -103,7 +105,7 @@ void QuestTreeWidget::QuestChangeState(Quest *quest, Quest::QuestState state)
     if (questItemMap.contains(quest))
     {
         QTreeWidgetItem *item = questItemMap[quest];
-        item->setData(1, 0, QVariant(Quest::QuestStateString()[quest->questState]));
+        item->setData(1, 0, QVariant(Quest::QuestStateString()[state]));
         qDebug() << "item state updated";
     }
 }
