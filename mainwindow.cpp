@@ -41,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
     questWidget.AddClient(client);
 
     connect(&server, SIGNAL(new_client(client_model*)), &questWidget, SLOT(AddClient(client_model*)));
+    Scene_view *map = new Scene_view();
+    map->show();
 }
 
 MainWindow::~MainWindow()

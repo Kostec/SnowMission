@@ -5,32 +5,32 @@ Graphics_model::Graphics_model(int type, int id)
     switch (type) {
     case Unit_type::Truck:
     {
-        icon_item.setPixmap(QPixmap(":/Truck.png"));
+        icon_item.setPixmap(QPixmap(":/Ikons/Truck.png"));
         break;
     }
     case Unit_type::Excavator:
     {
-        icon_item.setPixmap(QPixmap(":/Excavator.png"));
+        icon_item.setPixmap(QPixmap(":/Ikons/Excavator.png"));
         break;
     }
     case Unit_type::Brush_machine:
     {
-        icon_item.setPixmap(QPixmap(":/Brush_machine.png"));
+        icon_item.setPixmap(QPixmap(":/Ikons/Brush_machine.png"));
         break;
     }
     case Unit_type::Reagent_brush_machine:
     {
-        icon_item.setPixmap(QPixmap(":/Reagent_brush_machine.png"));
+        icon_item.setPixmap(QPixmap(":/Ikons/Reagent_brush_machine.png"));
         break;
     }
     case Unit_type::Rotary_loader:
     {
-        icon_item.setPixmap(QPixmap(":/Rotary_loader.png"));
+        icon_item.setPixmap(QPixmap(":/Ikons/Rotary_loader.png"));
         break;
     }
     case Unit_type::Plane:
     {
-        icon_item.setPixmap(QPixmap(":/Plane.png"));
+        icon_item.setPixmap(QPixmap(":/Ikons/Plane.png"));
         icon_item.setRotation(45);
         break;
     }

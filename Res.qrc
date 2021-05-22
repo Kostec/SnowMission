@@ -6,5 +6,7 @@
         <file>Ikons/Reagent_brush_machine.png</file>
         <file>Ikons/Rotary_loader.png</file>
         <file>Ikons/Truck.png</file>
+        <file>Ikons/map_road.jpg</file>
+        <file>Ikons/map.jpg</file>
     </qresource>
 </RCC>

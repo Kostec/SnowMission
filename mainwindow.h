@@ -10,6 +10,7 @@
 
 #include <CustomWidgets/mapview.h>
 #include <CustomWidgets/questtreewidget.h>
+#include "CustomWidgets/scene_view.h"
 
 #include <server/server.h>
 
