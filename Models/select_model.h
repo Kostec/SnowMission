@@ -22,10 +22,11 @@ public:
 
     QList<map_cell> Cells;
     int map_step;
+    QRect fromMapRect;
 
     // QGraphicsItem interface
 public:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) override;
 public slots:
     void RectBuilder(QList<map_cell> cells);
 };

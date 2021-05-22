@@ -72,28 +72,9 @@ void Scene_view::mouseReleaseEvent(QMouseEvent *event)
     {
         QRectF select_zone = select_region->boundingRect();
         QList<map_cell> selected_cells = MapSelectCells(select_zone);
-//        QImage test = QImage(map_item->pixmap().toImage());
-//        int counter =0;
-//        for (int i=0;i<map_size.x() ;i++ ) {
-//            for (int j=0;j<map_size.y() ;j++ )
-//            {
-//                for (int k = 0;k<selected_cells.size() ;k++ ) {
-//                    if (QPoint(i,j)==selected_cells.at(k).pos)
-//                    {
-//                        for (int x = 0;x<map_pix_step ;x++ ) {
-//                            test.setPixelColor(map_pix_step*i+x,map_pix_step*j,Qt::red);
-//                            test.setPixelColor(map_pix_step*i+x,map_pix_step*j+map_pix_step-1,Qt::red);
-//                            test.setPixelColor(map_pix_step*i,map_pix_step*j+x,Qt::red);
-//                            test.setPixelColor(map_pix_step*i+map_pix_step-1,map_pix_step*j+x,Qt::red);
-//                        }
-//                        counter++;
-//                    }
 
-//                }
-//            }
-//        }
-//        qDebug()<<"counter"<<counter;
-//        test.save("test1.png");
+        Select_model *new_select_item = new Select_model(selected_cells,map_pix_step);
+        scene->addItem(new_select_item);
         scene->removeItem(select_region);
         delete select_region;
         select_event = false;
