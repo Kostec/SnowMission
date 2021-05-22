@@ -40,9 +40,10 @@ MainWindow::MainWindow(QWidget *parent)
     client->Work_id = 99;
     questWidget.AddClient(client);
 
-    connect(&server, SIGNAL(new_client(client_model*)), &questWidget, SLOT(AddClient(client_model*)));
+    connect(&server, SIGNAL(new_client(client_model*)), &questWidget, SLOT(AddClient(client_model*)));  
     Scene_view *map = new Scene_view();
     map->show();
+    connect(&server, SIGNAL(new_client(client_model*)), map, SLOT(new_unit(client_model*)));
 }
 
 MainWindow::~MainWindow()

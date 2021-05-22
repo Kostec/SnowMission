@@ -14,6 +14,7 @@
 #include <QVector>
 #include <QMouseEvent>
 #include "Models/select_model.h"
+#include "Models/client_model.h"
 
 class Scene_view : public QGraphicsView
 {
@@ -40,6 +41,7 @@ public:
     // QWidget interface
 public slots:
     void generate_map();
+    void new_unit(client_model *client);
 
     QList<map_cell> MapSelectCells(QRectF rect);
 protected:

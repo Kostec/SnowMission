@@ -3,7 +3,7 @@
 client_model::client_model(QTcpSocket *_socket, QObject *parent) : QObject(parent)
 {
     socket = _socket;
-//    connect(socket,SIGNAL(readyRead()),SLOT(resive_Data()));
+    connect(socket,SIGNAL(readyRead()),SLOT(resive_Data()));
 }
 
 void client_model::resive_Data()

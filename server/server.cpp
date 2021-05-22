@@ -2,7 +2,7 @@
 
 Server::Server()
 {
-    QString ipAddress= QHostAddress(QHostAddress::LocalHost).toString();
+    QString ipAddress= QHostAddress(QHostAddress::Any).toString();
 
     if (!this->listen(QHostAddress(ipAddress),5000)) {
         qDebug() << "Error create";

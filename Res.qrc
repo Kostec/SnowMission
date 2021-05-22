@@ -8,5 +8,6 @@
         <file>Ikons/Truck.png</file>
         <file>Ikons/map_road.jpg</file>
         <file>Ikons/map.jpg</file>
+        <file>stylesheets/blender.qss</file>
     </qresource>
 </RCC>

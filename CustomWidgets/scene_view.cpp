@@ -147,3 +147,9 @@ void Scene_view::generate_map()
         }
     }
 }
+
+void Scene_view::new_unit(client_model *client)
+{
+    scene->addItem(client->view_item);
+    scene->update();
+}
