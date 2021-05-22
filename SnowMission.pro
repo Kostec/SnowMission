@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
 CONFIG += c++11
 
@@ -10,6 +10,8 @@ CONFIG += c++11
 
 SOURCES += \
     Controllers/questcontroller.cpp \
+    CustomWidgets/TreeItems/clienttreeitem.cpp \
+    CustomWidgets/TreeItems/questtreeitem.cpp \
     CustomWidgets/mapview.cpp \
     CustomWidgets/questtreewidget.cpp \
     Model/quest.cpp \
@@ -24,6 +26,8 @@ SOURCES += \
 
 HEADERS += \
     Controllers/questcontroller.h \
+    CustomWidgets/TreeItems/clienttreeitem.h \
+    CustomWidgets/TreeItems/questtreeitem.h \
     CustomWidgets/mapview.h \
     CustomWidgets/questtreewidget.h \
     Model/quest.h \

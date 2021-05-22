@@ -1,5 +1,9 @@
 #include "questtreewidget.h"
+#include <QDataStream>
 #include <QDebug>
+#include <QDrag>
+#include <QDragLeaveEvent>
+#include <QMimeData>
 
 QuestTreeWidget::QuestTreeWidget()
 {
@@ -27,6 +31,37 @@ QuestTreeWidget::QuestTreeWidget()
     setAcceptDrops(true);
     setDragEnabled(true);
     setDragDropMode(QAbstractItemView::InternalMove);
+
+
+    clientsNode = new QTreeWidgetItem();
+    clientsNode->setData(0, 0, QVariant("Units"));
+    addTopLevelItem(clientsNode);
+}
+
+void QuestTreeWidget::dragLeaveEvent(QDragLeaveEvent *event)
+{
+
+}
+
+void QuestTreeWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    if (event->buttons() & Qt::LeftButton)
+    {
+        if (selectedItems().count() < 1) return;
+        qDebug() << "selected drag items count " << selectedItems().count();
+        QDrag *drag = new QDrag(this);
+        QMimeData *mimeData = new QMimeData;
+
+        client_model *client = ((ClientTreeItem*)selectedItems().at(0))->client;
+
+        qDebug() << "work id" << client->Work_id;
+        mimeData->setProperty("client_id", QVariant(client->Work_id));
+        drag->setMimeData(mimeData);
+
+
+        Qt::DropAction result = drag->exec( Qt::MoveAction );
+        qDebug() << "Drop action result: " << result;
+    }
 }
 
 void QuestTreeWidget::dropEvent(QDropEvent *event)
@@ -34,21 +69,20 @@ void QuestTreeWidget::dropEvent(QDropEvent *event)
     qDebug() << "drop event";
 }
 
-void QuestTreeWidget::dragLeaveEvent(QDragLeaveEvent *event)
+
+void QuestTreeWidget::AddClient(client_model( *client))
 {
-    qDebug() << "drag leave event";
+    QTreeWidgetItem *item = new ClientTreeItem(client);
+
+    clientsNode->addChild(item);
 }
+
 
 void QuestTreeWidget::AddQuest(Quest *quest)
 {
     if (typeItemMap.contains(quest->questType))
     {
-        QTreeWidgetItem *item = new QTreeWidgetItem();
-        item->setData(0, 0, QVariant(QString("quest %1").arg(quest->id)));
-        item->setData(1, 0, QVariant(Quest::QuestStateString()[quest->questState]));
-        item->setData(2, 0, QVariant("Unit"));
-        item->setData(3, 0, QVariant(quest->createTime));
-        item->setData(4, 0, QVariant(quest->endTime));
+        QTreeWidgetItem *item = new QuestTreeItem(quest);
         typeItemMap[quest->questType]->addChild(item);
         questItemMap.insert(quest, item);
         qDebug() << "item added";

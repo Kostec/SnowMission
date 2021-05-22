@@ -8,6 +8,7 @@ class MapView : public QGraphicsView
 public:
     MapView();
     virtual void dropEvent(QDropEvent *event) override;
+    virtual void dragEnterEvent(QDragEnterEvent *event) override;
 };
 
 #endif // MAPVIEW_H
