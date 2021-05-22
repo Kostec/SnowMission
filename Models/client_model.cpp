@@ -190,6 +190,5 @@ void client_model::newPath(QList<QPoint> arg)
     Path = arg;
     move_event = true;
     move_count = 0;
-    qDebug()<<"Path.size();"<<Path.size();
-    move_timer.start(50);
+    move_timer.start(100);
 }
