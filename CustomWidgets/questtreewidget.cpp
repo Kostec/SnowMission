@@ -22,6 +22,8 @@ QuestTreeWidget::QuestTreeWidget()
     setDragDropMode(QAbstractItemView::InternalMove);
     units_item.setData(0,0,QVariant("Units"));
     addTopLevelItem(&units_item);
+
+    setSelectionMode(QAbstractItemView::MultiSelection);
 }
 
 void QuestTreeWidget::dragLeaveEvent(QDragLeaveEvent *event)
@@ -46,6 +48,8 @@ void QuestTreeWidget::mouseMoveEvent(QMouseEvent *event)
             mimeData->setProperty("type_item", QVariant(treeItem->type));
             mimeData->setProperty("client_id", QVariant(static_cast<ClientTreeItem*>(treeItem)->client->unit_ID));
             drag->setMimeData(mimeData);
+
+            item->setSelected(false);
 
             event->accept();
 
