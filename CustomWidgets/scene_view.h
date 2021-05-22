@@ -13,14 +13,7 @@
 #include <QPointF>
 #include <QVector>
 #include <QMouseEvent>
-
-struct map_cell
-{
-    QPoint pos;
-    bool road = false;
-    bool plane_colision = false;
-    bool unit_colision = false;
-};
+#include "Models/select_model.h"
 
 class Scene_view : public QGraphicsView
 {
@@ -42,7 +35,7 @@ public:
     bool select_event = false;
     qreal view_scale = 1.0;
 
-    int map_pix_step = 10;
+    int map_pix_step = 15;
 
     // QWidget interface
 public slots:
