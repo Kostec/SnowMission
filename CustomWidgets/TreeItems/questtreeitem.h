@@ -2,7 +2,7 @@
 #define QUESTTREEITEM_H
 
 #include <QTreeWidgetItem>
-#include "Model/quest.h"
+#include "Models/quest.h"
 
 class QuestTreeItem : public QTreeWidgetItem
 {

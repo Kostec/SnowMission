@@ -6,7 +6,7 @@
 
 #include <CustomWidgets/TreeItems/questtreeitem.h>
 #include <CustomWidgets/TreeItems/clienttreeitem.h>
-#include <Model/quest.h>
+#include <Models/quest.h>
 
 class QuestTreeWidget: public QTreeWidget
 {

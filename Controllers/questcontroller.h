@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include <Model/quest.h>
+#include <Models/quest.h>
 
 #include <Models/client_model.h>
 
