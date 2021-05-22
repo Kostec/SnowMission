@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout.addWidget(map);
     map->show();
     connect(&server, SIGNAL(new_client(client_model*)), map, SLOT(new_unit(client_model*)));
-    server.spawn(5);
+    server.spawn(1);
 }
 
 MainWindow::~MainWindow()
