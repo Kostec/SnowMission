@@ -10,12 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     Controllers/questcontroller.cpp \
+    CustomWidgets/TreeItems/clienttreeitem.cpp \
+    CustomWidgets/TreeItems/questtreeitem.cpp \
     CustomWidgets/mapview.cpp \
     CustomWidgets/questtreewidget.cpp \
     CustomWidgets/scene_view.cpp \
-    Model/quest.cpp \
     Models/client_model.cpp \
     Models/graphics_model.cpp \
+    Models/quest.cpp \
     Models/select_model.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -26,12 +28,14 @@ SOURCES += \
 
 HEADERS += \
     Controllers/questcontroller.h \
+    CustomWidgets/TreeItems/clienttreeitem.h \
+    CustomWidgets/TreeItems/questtreeitem.h \
     CustomWidgets/mapview.h \
     CustomWidgets/questtreewidget.h \
     CustomWidgets/scene_view.h \
-    Model/quest.h \
     Models/client_model.h \
     Models/graphics_model.h \
+    Models/quest.h \
     Models/select_model.h \
     mainwindow.h \
     server/packets/abstract_packet_class.h \

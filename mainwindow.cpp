@@ -31,6 +31,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     mainLayout.addWidget(&view);
 
+    client_model *client = new client_model(nullptr);
+    client->Lalittude = 12.5;
+    client->Longituge = 45.5;
+    client->Power = 100;
+    client->Status = 87;
+    client->Velosity = 5.5;
+    client->Work_id = 99;
+    questWidget.AddClient(client);
+
+    connect(&server, SIGNAL(new_client(client_model*)), &questWidget, SLOT(AddClient(client_model*)));
     Scene_view *map = new Scene_view();
     map->show();
 }

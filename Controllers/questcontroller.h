@@ -3,7 +3,9 @@
 
 #include <QObject>
 
-#include <Model/quest.h>
+#include <Models/quest.h>
+
+#include <Models/client_model.h>
 
 class QuestController: QObject
 {
@@ -11,13 +13,16 @@ class QuestController: QObject
 public:
     QuestController();
 
-    QList<Quest> quests;
+    QList<Quest*> quests;
+    QList<client_model*> clients;
 
     void AddQuest(Quest *quest);
     void QuestComplete(Quest *quest);
 
 //signals:
 //    void QuestCompleted(Quest *quest);
+public slots:
+    void new_client(client_model *client);
 };
 
 
