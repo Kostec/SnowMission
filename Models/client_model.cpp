@@ -182,8 +182,11 @@ void client_model::update()
             Select_model *select_model = qgraphicsitem_cast<Select_model *>(item);
             if(select_model != nullptr)
             {
-                this->Work_id = select_model->questId;
-                select_model->Power+=this->Power;
+                if (select_model->questId != 0)
+                {
+                    this->Work_id = select_model->questId;
+                    select_model->Power+=this->Power;
+                }
             }
         }
     }

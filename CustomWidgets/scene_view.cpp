@@ -72,13 +72,11 @@ void Scene_view::mousePressEvent(QMouseEvent *event)
                 menu->addAction("Проверка", this, [this, model]{ emit createQuest(Quest::Visit, model->id); });
                 menu->addAction("Вывоз снега", this, [this, model]{ emit createQuest(Quest::Overflow, model->id); });
 
-                menu->addAction("Гора снега", this, [this, model, scene_point]{
+                menu->addAction("Гора снега", this, [this, model]{
                     QGraphicsPixmapItem *icon_item = new QGraphicsPixmapItem();
                     icon_item->setParentItem(model);
                     icon_item->setPixmap(QPixmap(":/Ikons/Гора снега.jpg").scaled(70,50));
                     icon_item->setPos(model->boundingRect().topLeft()+QPointF(0, 0));
-
-//                    ew_select_item->boundingRect().topLeft() + QPointF(new_select_item->boundingRect().width()/3,-map_pix_step-5)
 
                     scene->addItem(icon_item);
                 });
