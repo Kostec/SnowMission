@@ -75,7 +75,7 @@ void Scene_view::mousePressEvent(QMouseEvent *event)
                 menu->addAction("Гора снега", this, [this, model]{
                     QGraphicsPixmapItem *icon_item = new QGraphicsPixmapItem();
                     icon_item->setParentItem(model);
-                    icon_item->setPixmap(QPixmap(":/Ikons/Гора снега.jpg").scaled(70,50));
+                    icon_item->setPixmap(QPixmap(":/Ikons/Show.jpg").scaled(70,50));
                     icon_item->setPos(model->boundingRect().topLeft()+QPointF(0, 0));
 
                     scene->addItem(icon_item);
