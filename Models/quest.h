@@ -22,19 +22,19 @@ public:
     static QString QuesTypeString(QuestType type)
     {
         switch (type) {
-            case None: return "None";
-            case Visit: return "Visit";
-            case Clear: return "Clear";
-            case Overflow: return "Overflow";
+            case None: return "-";
+            case Visit: return "Проверка";
+            case Clear: return "Уборка";
+            case Overflow: return "Вывоз снега";
         }
     }
 
     static const QMap<Quest::QuestState, QString> QuestStateString(){
         QMap<Quest::QuestState, QString> map;
-        map.insert(Quest::QuestState::New, "New");
-        map.insert(Quest::QuestState::Processing, "Processing");
-        map.insert(Quest::QuestState::Checking, "Checking");
-        map.insert(Quest::QuestState::Complete, "Complete");
+        map.insert(Quest::QuestState::New, "Новая");
+        map.insert(Quest::QuestState::Processing, "Выполняется");
+        map.insert(Quest::QuestState::Checking, "Проверяется");
+        map.insert(Quest::QuestState::Complete, "Завершено");
         return map;
     };
 

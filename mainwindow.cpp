@@ -9,14 +9,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     qRegisterMetaType<QList<QPoint>>("List of points");
     this->centralWidget()->setLayout(&mainLayout);
-    mainLayout.addWidget(&questWidget);
-
     questWidget.setMinimumWidth(250);
-//    connect(&server, SIGNAL(new_client(client_model*)), &questWidget, SLOT(AddClient(client_model*)));
 
     map = new Scene_view();
 
-    mainLayout.addWidget(map);
+    QSplitter *splitter = new QSplitter;
+    splitter->addWidget(&questWidget);
+    splitter->addWidget(map);
+    mainLayout.addWidget(splitter);
+
     map->show();
     connect(&server, SIGNAL(new_client(client_model*)), map, SLOT(new_unit(client_model*)));
     server.spawn(30);

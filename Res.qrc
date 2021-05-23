@@ -9,5 +9,7 @@
         <file>Ikons/map_road.jpg</file>
         <file>Ikons/map.jpg</file>
         <file>stylesheets/blender.qss</file>
+        <file>stylesheets/Geoo.qss</file>
+        <file>Ikons/Гора снега.jpg</file>
     </qresource>
 </RCC>

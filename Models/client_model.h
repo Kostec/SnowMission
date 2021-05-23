@@ -60,7 +60,7 @@ public:
     float Longituge = 0;
     float Lalittude = 0;
 
-    float Power = 0;
+    float Power = 10*10; // площадь в пикселях за 1 секунду
     int map_pix_step = 30;
     bool move_event = false;
     QTimer move_timer;

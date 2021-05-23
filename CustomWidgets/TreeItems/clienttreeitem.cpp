@@ -4,7 +4,7 @@ ClientTreeItem::ClientTreeItem(client_model *client)
 {
     type = TreeItem::ItemType::USER;
     this->client = client;
-    setData(1, 0, QVariant(QString("client %1").arg(client->unit_ID)));
+    setData(1, 0, QVariant(QString("Юнит %1").arg(client->unit_ID)));
     QPixmap icon_item;
     switch (client->unit_Type) {
     case client_model::Unit_type::Truck:

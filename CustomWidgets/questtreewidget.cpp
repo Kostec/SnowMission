@@ -20,7 +20,7 @@ QuestTreeWidget::QuestTreeWidget()
     setAcceptDrops(true);
     setDragEnabled(true);
     setDragDropMode(QAbstractItemView::InternalMove);
-    units_item.setData(0,0,QVariant("Units"));
+    units_item.setData(0,0,QVariant("Юниты"));
     addTopLevelItem(&units_item);
 
     setSelectionMode(QAbstractItemView::MultiSelection);
@@ -83,8 +83,6 @@ void QuestTreeWidget::AddQuest(Quest *quest)
     questItems.insert(quest->id, item);
 
     item->setExpanded(true);
-
-    qDebug() << "item added";
 }
 
 Quest* QuestTreeWidget::AddQuest(Quest::QuestType type, int selectModelId)

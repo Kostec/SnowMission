@@ -71,6 +71,18 @@ void Scene_view::mousePressEvent(QMouseEvent *event)
                 menu->addAction("Уборка", this, [this, model]{ emit createQuest(Quest::Clear, model->id); });
                 menu->addAction("Проверка", this, [this, model]{ emit createQuest(Quest::Visit, model->id); });
                 menu->addAction("Вывоз снега", this, [this, model]{ emit createQuest(Quest::Overflow, model->id); });
+
+                menu->addAction("Гора снега", this, [this, model, scene_point]{
+                    QGraphicsPixmapItem *icon_item = new QGraphicsPixmapItem();
+                    icon_item->setParentItem(model);
+                    icon_item->setPixmap(QPixmap(":/Ikons/Гора снега.jpg").scaled(70,50));
+                    icon_item->setPos(model->boundingRect().topLeft()+QPointF(0, 0));
+
+//                    ew_select_item->boundingRect().topLeft() + QPointF(new_select_item->boundingRect().width()/3,-map_pix_step-5)
+
+                    scene->addItem(icon_item);
+                });
+
                 menu->addAction("Удалить", this, [this, model]
                 {
                     this->scene->removeItem(model);
@@ -82,13 +94,13 @@ void Scene_view::mousePressEvent(QMouseEvent *event)
             }
             else
             {
-                QPoint point = QPoint(qRound(scene_point.x()/map_pix_step),qRound(scene_point.y()/map_pix_step));
-                if(Map[point.y()][point.x()].road)
-                    for (int i = 0;i<client_list.size() ; i++ )
-                    {
-                        client_model *client = client_list.at(i);
-                        client->MoveTo(QPoint(qRound(scene_point.x()/map_pix_step),qRound(scene_point.y()/map_pix_step)));
-                    }
+//                QPoint point = QPoint(qRound(scene_point.x()/map_pix_step),qRound(scene_point.y()/map_pix_step));
+//                if(Map[point.y()][point.x()].road)
+//                    for (int i = 0;i<client_list.size() ; i++ )
+//                    {
+//                        client_model *client = client_list.at(i);
+//                        client->MoveTo(QPoint(qRound(scene_point.x()/map_pix_step),qRound(scene_point.y()/map_pix_step)));
+//                    }
             }
         }
         break;
@@ -129,12 +141,24 @@ void Scene_view::mouseReleaseEvent(QMouseEvent *event)
         QList<map_cell> selected_cells = MapSelectCells(select_zone.normalized());
 
         Select_model *new_select_item = new Select_model(selected_cells,map_pix_step);
+
         scene->addItem(new_select_item);
+        scene->addItem(new_select_item->time_status);
+        new_select_item->time_status->setPos(new_select_item->boundingRect().topLeft() + QPointF(new_select_item->boundingRect().width()/3,-map_pix_step-5));
         scene->removeItem(select_region);
         delete select_region;
         select_event = false;
 
         selectModels.append(new_select_item);
+
+
+        new_select_item->endTimer.callOnTimeout([this, new_select_item]
+        {
+            this->scene->removeItem(new_select_item);
+            selectModels.removeAll(new_select_item);
+            emit removeQuest(new_select_item->questId);
+        });
+
         break;
     }
     case Qt::MiddleButton:

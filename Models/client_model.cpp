@@ -1,4 +1,5 @@
 #include "client_model.h"
+#include "select_model.h"
 #include "math/path_finder.h"
 #include <QThread>
 
@@ -42,8 +43,8 @@ client_model::client_model(int type, int id,  QObject *parent) : QObject(parent)
     icon_item->show();
     ID_item->show();
     connect(&move_timer,SIGNAL(timeout()),this,SLOT(update()));
-//    socket = _socket;
-//    connect(socket,SIGNAL(readyRead()),this,SLOT(resive_Data()));
+    //    socket = _socket;
+    //    connect(socket,SIGNAL(readyRead()),this,SLOT(resive_Data()));
 }
 
 void client_model::finder_start( QVector<QVector<map_cell> > *Map)
@@ -174,6 +175,17 @@ void client_model::update()
         move_event = false;
         move_count = 0;
         move_timer.stop();
+
+        QList<QGraphicsItem *> colides = this->icon_item->collidingItems();
+        foreach (QGraphicsItem *item, colides)
+        {
+            Select_model *select_model = qgraphicsitem_cast<Select_model *>(item);
+            if(select_model != nullptr)
+            {
+                this->Work_id = select_model->questId;
+                select_model->Power+=this->Power;
+            }
+        }
     }
     emit scene_update();
 }
@@ -190,5 +202,15 @@ void client_model::newPath(QList<QPoint> arg)
     Path = arg;
     move_event = true;
     move_count = 0;
+    QList<QGraphicsItem *> colides = this->icon_item->collidingItems();
+    foreach (QGraphicsItem *item, colides)
+    {
+        Select_model *select_model = qgraphicsitem_cast<Select_model *>(item);
+        if(select_model != nullptr)
+        {
+            this->Work_id = select_model->questId;
+            select_model->Power-=this->Power;
+        }
+    }
     move_timer.start(100);
 }
